@@ -1,6 +1,10 @@
 return {
-	"rebelot/kanagawa.nvim",
+	"rose-pine/neovim",
 	lazy = false,
 	priority = 1000,
-	opts = {},
+	config = function()
+		require("rose-pine").setup({
+			variant = "main",
+		})
+	end,
 }

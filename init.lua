@@ -29,6 +29,7 @@ require("lazy").setup({
 	require("plugins.flash"),
 	require("plugins.tmux-nav"),
 	require("plugins.harpoon"),
+	require("plugins.diagnostics"),
 })
 
-vim.cmd("colorscheme kanagawa-dragon")
+vim.cmd("colorscheme rose-pine")
