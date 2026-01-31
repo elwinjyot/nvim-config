@@ -18,13 +18,13 @@ return {
 
 				map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 				map("<leader>ca", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
-				map("<leader>gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-				map("<leader>gi", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-				map("<leader>gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-				map("<leader>gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-				map("<leader>gO", require("telescope.builtin").lsp_document_symbols, "Open Document Symbols")
-				map("<leader>gW", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
-				map("<leader>grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
+				map("<leader>lr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+				map("<leader>li", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+				map("<leader>ld", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+				map("<leader>lD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+				map("<leader>lO", require("telescope.builtin").lsp_document_symbols, "Open Document Symbols")
+				map("<leader>lW", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
+				map("<leader>lrt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
 
 				---@param client vim.lsp.Client
 				---@param method vim.lsp.protocol.Method

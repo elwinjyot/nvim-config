@@ -26,6 +26,9 @@ return {
 			end, { desc = "Toggle line blame" })
 
 			vim.keymap.set("n", "<leader>gg", ":Git<CR>", { desc = "Git Status" })
+			vim.keymap.set("n", "<leader>ga", ":Git add .<CR>", { desc = "Git Add" })
+			vim.keymap.set("n", "<leader>gc", ":Git commit<CR>", { desc = "Git Commit" })
+			vim.keymap.set("n", "<leader>gd", ":Git diff<CR>", { desc = "Open File Diff" })
 		end,
 	},
 	{
