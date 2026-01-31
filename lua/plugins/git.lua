@@ -1,34 +1,95 @@
-local function is_blame_open()
-	local wins = vim.api.nvim_tabpage_list_wins(0)
-
-	for _, win in ipairs(wins) do
-		local buf = vim.api.nvim_win_get_buf(win)
-		if vim.bo[buf].filetype == "fugitiveblame" then
-			return true, win
-		end
-	end
-
-	return false, nil
-end
-
 return {
 	{
 		"tpope/vim-fugitive",
 		config = function()
-			vim.keymap.set("n", "<leader>gb", function()
-				local is_open, win_id = is_blame_open()
+			local function get_blame_window()
+				local wins = vim.api.nvim_tabpage_list_wins(0)
+				for _, win in ipairs(wins) do
+					local buf = vim.api.nvim_win_get_buf(win)
+					if vim.bo[buf].filetype == "fugitiveblame" then
+						return win
+					end
+				end
+				return nil
+			end
 
-				if is_open then
+			-- Toggle Git Blame
+			vim.keymap.set("n", "<leader>gb", function()
+				local win_id = get_blame_window()
+				if win_id then
 					vim.api.nvim_win_close(win_id, true)
 				else
 					vim.cmd("Git blame")
 				end
-			end, { desc = "Toggle line blame" })
+			end, { desc = "Toggle Git Blame" })
 
-			vim.keymap.set("n", "<leader>gg", ":Git<CR>", { desc = "Git Status" })
-			vim.keymap.set("n", "<leader>ga", ":Git add .<CR>", { desc = "Git Add" })
-			vim.keymap.set("n", "<leader>gc", ":Git commit<CR>", { desc = "Git Commit" })
-			vim.keymap.set("n", "<leader>gd", ":Git diff<CR>", { desc = "Open File Diff" })
+			-- Git Status
+			vim.keymap.set("n", "<leader>gg", function()
+				vim.cmd("Git")
+			end, { desc = "Git Status" })
+
+			-- Git Add All
+			vim.keymap.set("n", "<leader>ga", function()
+				vim.cmd("Git add .")
+				vim.notify("Staged all files!")
+			end, { desc = "Git Add All" })
+
+			-- Git Commit
+			vim.keymap.set("n", "<leader>gc", function()
+				vim.cmd("Git commit")
+			end, { desc = "Git Commit" })
+
+			-- Git Push
+			vim.keymap.set("n", "<leader>gp", function()
+				vim.cmd("Git push")
+				vim.notify("Changes pushed!")
+			end, { desc = "Git Push" })
+
+			vim.keymap.set("n", "<leader>gP", function()
+				vim.ui.input({
+					prompt = "Pull from (remote branch): ",
+					default = "origin ",
+				}, function(input)
+					if not input or input == "" then
+						return
+					end
+
+					local cmd = "git pull " .. input
+					local output = vim.fn.system(cmd)
+					local exit_code = vim.v.shell_error
+
+					if exit_code == 0 then
+						vim.notify("Pulled and synced from " .. input, vim.log.levels.INFO)
+					else
+						if output:find("CONFLICT") then
+							local conflict_count =
+								vim.fn.system("git diff --name-only --diff-filter=U | wc -l"):gsub("%s+", "")
+							vim.notify("Pulled with " .. conflict_count .. " conflict(s)", vim.log.levels.WARN)
+						else
+							vim.notify("Pull failed: " .. output, vim.log.levels.ERROR)
+						end
+					end
+
+					vim.cmd("checktime")
+				end)
+			end, { desc = "Git Pull" })
+		end,
+	},
+	{
+		"sindrets/diffview.nvim",
+		config = function()
+			-- Git Diff
+			vim.keymap.set("n", "<leader>gd", function()
+				vim.cmd("DiffviewOpen --layout=diff3_mixed")
+			end, {
+				desc = "Git Diff",
+			})
+
+			vim.keymap.set("n", "<leader>gdc", function()
+				vim.cmd("DiffviewClose")
+			end, {
+				desc = "Close Git Diff",
+			})
 		end,
 	},
 	{
