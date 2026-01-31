@@ -31,7 +31,7 @@ return {
 			-- Git Add All
 			vim.keymap.set("n", "<leader>ga", function()
 				vim.cmd("Git add .")
-				vim.notify("Staged all files!")
+				vim.notify("Staged all files!", vim.log.levels.INFO, { title = "Git" })
 			end, { desc = "Git Add All" })
 
 			-- Git Commit
@@ -73,6 +73,22 @@ return {
 					vim.cmd("checktime")
 				end)
 			end, { desc = "Git Pull" })
+
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "FugitiveChanged",
+				callback = function()
+					local last_cmd = vim.g.fugitive_last_command or ""
+
+					if last_cmd:find("commit") then
+						vim.notify("Git Commit Successful 🚀", vim.log.levels.INFO, {
+							title = "Fugitive",
+							timeout = 2000,
+						})
+
+						vim.g.fugitive_last_command = ""
+					end
+				end,
+			})
 		end,
 	},
 	{

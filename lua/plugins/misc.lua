@@ -8,7 +8,7 @@ return {
 		-- Hints keybinds
 		"folke/which-key.nvim",
 		opts = {
-			delay = 2000,
+			delay = 1000,
 		},
 	},
 	{
@@ -42,6 +42,22 @@ return {
 					enable_rename = true, -- Auto rename pairs of tags
 					enable_close_on_slash = true, -- Auto close on trailing </
 				},
+			})
+		end,
+	},
+	{
+		"rcarriga/nvim-notify",
+		config = function()
+			local notify = require("notify")
+
+			-- Set as the default notify function for Neovim
+			vim.notify = notify
+
+			-- Optional: Configuration
+			notify.setup({
+				stages = "fade", -- Animations: "fade", "slide", "fade_in_slide_out"
+				timeout = 3000, -- Auto-close after 3 seconds
+				background_colour = "#000000",
 			})
 		end,
 	},
