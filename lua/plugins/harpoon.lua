@@ -14,10 +14,14 @@ return {
 
 		vim.keymap.set("n", "<leader>a", function()
 			harpoon:list():add()
-		end)
+		end, {
+			desc = "Add to harpoon list",
+		})
 		vim.keymap.set("n", "<leader>o", function()
 			harpoon.ui:toggle_quick_menu(harpoon:list())
-		end)
+		end, {
+			desc = "Open harpoon list",
+		})
 
 		-- Direct selects (1-4)
 		vim.keymap.set("n", "<C-1>", function()
