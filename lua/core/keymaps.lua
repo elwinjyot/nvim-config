@@ -62,7 +62,6 @@ keymap.set("v", "p", '"_dP', opts)
 keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
 keymap.set("n", "]d", vim.diagnostic.goto_prev, { desc = "Go to next diagnostic" })
 keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- Press jk fast to exit insert mode
 keymap.set("i", "jj", "<ESC>", opts)

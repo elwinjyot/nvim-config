@@ -13,18 +13,13 @@ return {
 			callback = function(event)
 				local map = function(keys, func, desc, mode)
 					mode = mode or "n"
-					vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+					vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = desc })
 				end
 
-				map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-				map("<leader>ca", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
-				map("<leader>lr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-				map("<leader>li", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-				map("<leader>ld", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-				map("<leader>lD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-				map("<leader>lO", require("telescope.builtin").lsp_document_symbols, "Open Document Symbols")
-				map("<leader>lW", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
-				map("<leader>lrt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
+				map("<leader>rn", vim.lsp.buf.rename, "Rename Symbol")
+				map("<leader>ca", vim.lsp.buf.code_action, "Code Actions", { "n", "x" })
+				map("<leader>ld", vim.lsp.buf.definition, "Goto Definition")
+				map("<leader>lD", vim.lsp.buf.declaration, "Goto Declaration")
 
 				---@param client vim.lsp.Client
 				---@param method vim.lsp.protocol.Method
@@ -67,15 +62,6 @@ return {
 							vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
 						end,
 					})
-				end
-
-				if
-					client
-					and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
-				then
-					map("<leader>th", function()
-						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-					end, "[T]oggle Inlay [H]ints")
 				end
 			end,
 		})
