@@ -5,6 +5,9 @@ return {
 	config = function()
 		require("rose-pine").setup({
 			variant = "main",
+			styles = {
+				transparency = true,
+			},
 		})
 	end,
 }

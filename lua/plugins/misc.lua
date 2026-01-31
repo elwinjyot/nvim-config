@@ -50,14 +50,12 @@ return {
 		config = function()
 			local notify = require("notify")
 
-			-- Set as the default notify function for Neovim
 			vim.notify = notify
 
-			-- Optional: Configuration
 			notify.setup({
-				stages = "fade", -- Animations: "fade", "slide", "fade_in_slide_out"
-				timeout = 3000, -- Auto-close after 3 seconds
-				background_colour = "#000000",
+				stages = "slide",
+				timeout = 3000,
+				render = "compact",
 			})
 		end,
 	},
