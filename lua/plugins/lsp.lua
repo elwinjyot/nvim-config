@@ -54,20 +54,25 @@ return {
 				map("<leader>ld", vim.lsp.buf.definition, "Goto Definition")
 				map("<leader>lD", vim.lsp.buf.declaration, "Goto Declaration")
 
-				-- Highlight the word under the cursor when cursor does not move
-				local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
-				vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-					buffer = event.buf,
-					group = highlight_augroup,
-					callback = vim.lsp.buf.document_highlight,
-				})
+				-- Get the client associated with this event
+				local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-				-- Remove the highlight when cursor is moved away
-				vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-					buffer = event.buf,
-					group = highlight_augroup,
-					callback = vim.lsp.buf.clear_references,
-				})
+				-- Only create highlights if the server supports it
+				if client and client.supports_method("textDocument/documentHighlight") then
+					local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
+
+					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+						buffer = event.buf,
+						group = highlight_augroup,
+						callback = vim.lsp.buf.document_highlight,
+					})
+
+					vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+						buffer = event.buf,
+						group = highlight_augroup,
+						callback = vim.lsp.buf.clear_references,
+					})
+				end
 
 				-- Remove and clear highlights when LSP is detached
 				vim.api.nvim_create_autocmd("LspDetach", {

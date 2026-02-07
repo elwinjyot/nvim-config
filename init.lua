@@ -27,6 +27,7 @@ require("lazy").setup({
 	require("plugins.harpoon"),
 	require("plugins.diagnostics"),
 	require("plugins.mini"),
+	require("plugins.dashboard"),
 })
 
 vim.cmd("colorscheme rose-pine")
