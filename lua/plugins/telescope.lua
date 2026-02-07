@@ -43,7 +43,6 @@ return {
 			},
 		})
 
-		require("telescope").load_extension("ui-select")
 		-- Keymaps
 		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
 		vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find Help" })
@@ -52,5 +51,7 @@ return {
 		vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "Find References" })
 		vim.keymap.set("n", "<leader>fb", builtin.git_branches, { desc = "Find Git Branches" })
 		vim.keymap.set("n", "<leader>fq", builtin.diagnostics, { desc = "Find Diagnostics" })
+
+		require("telescope").load_extension("ui-select")
 	end,
 }

@@ -17,7 +17,7 @@ return {
 		end, {
 			desc = "Add to harpoon list",
 		})
-		vim.keymap.set("n", "<leader>o", function()
+		vim.keymap.set("n", "<leader>O", function()
 			harpoon.ui:toggle_quick_menu(harpoon:list())
 		end, {
 			desc = "Open harpoon list",
