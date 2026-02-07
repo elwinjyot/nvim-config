@@ -14,8 +14,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	require("plugins.colorscheme"),
-	require("plugins.neotree"),
-	require("plugins.lualine"),
 	require("plugins.treesitter"),
 	require("plugins.telescope"),
 	require("plugins.lsp"),
@@ -24,12 +22,11 @@ require("lazy").setup({
 	require("plugins.git"),
 	require("plugins.indent-blankline"),
 	require("plugins.misc"),
-	require("plugins.oil"),
 	require("plugins.flash"),
 	require("plugins.tmux-nav"),
 	require("plugins.harpoon"),
 	require("plugins.diagnostics"),
+	require("plugins.mini"),
 })
 
 vim.cmd("colorscheme rose-pine")
-
