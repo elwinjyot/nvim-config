@@ -28,6 +28,7 @@ require("lazy").setup({
 	require("plugins.diagnostics"),
 	require("plugins.mini"),
 	require("plugins.dashboard"),
+	require("plugins.oil"),
 })
 
-vim.cmd("colorscheme rose-pine")
+vim.cmd("colorscheme kanagawa-dragon")
